@@ -18,11 +18,3 @@ document.addEventListener("DOMContentLoaded", () => {
     counter("count2", 100, 200, 2500);
     counter("count3", 0, 2, 0);
    });
-
-// Map
-var map = L.map('mapid').setView([59.412369, 9.067760], 15); 
-//59°17′26″N 11°12′10″Ø
-
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-}).addTo(map); 
