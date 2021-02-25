@@ -83,10 +83,6 @@ header {
     color: white;
 }
 
-footer {
-    height: 50px;
-}
-
 .icontext {
     max-width: 100px;
 }
@@ -120,7 +116,7 @@ footer {
 
 .filter {
 	width: 20%;
-	background-color: brown;
+	border: solid 2px brown;
 }
 
 .Parent {
@@ -129,24 +125,25 @@ footer {
 }
 
 .child1 {
-
+    background-color: white;
 }
 
 .child2 {
-
+    background-color: white;
 }
 
-.flexbox {
-	display: flex!important;
+.mapsection {
+    display: flex!important;
+    padding-top: 100px;
 }
 
 .resultat {
-	background-color: blue;
+	border: solid 2px blue;
 	height: 200px;
 }
 
 .pages {
-	background-color: red;
+	border: solid 2px red; 
 }
 
 .buttonicon {
@@ -169,8 +166,13 @@ footer {
 
 .wave-absolute {
     position: absolute;
-    bottom: 50px;
+    bottom: 100px;
     z-index: -2;
+}
+
+.footer {
+    height: 100px;
+    width: 100%;
 }
 
 .h6line:before {
