@@ -137,6 +137,10 @@ header {
     padding-top: 100px;
 }
 
+.aboutsection {
+    padding-top: 150px;
+}
+
 .resultat {
 	border: solid 2px blue;
 	height: 200px;
@@ -173,6 +177,7 @@ header {
 .footer {
     height: 100px;
     width: 100%;
+    bottom: 0;
 }
 
 .h6line:before {
