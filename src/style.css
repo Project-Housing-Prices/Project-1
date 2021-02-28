@@ -1,5 +1,11 @@
 * {
     box-sizing: border-box;
+    font-family: "Roboto";
+}
+
+@font-face {
+    src: url(fonts/RobotoCondensed-Regular.ttf);
+    font-family: "Roboto";
 }
 
 html {
@@ -8,11 +14,14 @@ html {
     scroll-behavior: smooth;
 }
 
+body {
+    padding: 0;
+    padding-bottom: 100px;
+}
 
 header {
     padding-top: 50px;
     text-transform: uppercase;
-    font-family: 'Roboto Condensed';
 }
 
 .active {
@@ -135,6 +144,7 @@ header {
 .mapsection {
     display: flex!important;
     padding-top: 100px;
+    padding-bottom: 50px;
 }
 
 .aboutsection {
@@ -174,10 +184,11 @@ header {
     z-index: -2;
 }
 
-.footer {
+footer {
     height: 100px;
-    width: 100%;
     bottom: 0;
+    width: 100%;
+    position: absolute;
 }
 
 .h6line:before {
@@ -265,7 +276,7 @@ header {
 }
 
 .custom-shape-divider-top-1614031102 .shape-fill {
-    fill: #242424;
+    fill: #212529;
 }
 
 /** For mobile devices **/
