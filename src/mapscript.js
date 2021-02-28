@@ -6,8 +6,18 @@ var liste = {
 	3:{hus:"Gult hus",x:51.4, y:-0.09, beskriv:"<br> Den er bra husen ja"}
 };
 
+var greenIcon = L.icon({
+    iconUrl: 'leaf-green.png',
+
+    iconSize:     [38, 95], // size of the icon
+    iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+    popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+});
+
 var map = L.map('mapid').setView([59.412369, 9.067760], 15); 
 //59°17′26″N 11°12′10″Ø
+
+L.marker([59.5, 9.09], {icon: greenIcon}).addTo(map);
 
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
