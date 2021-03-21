@@ -55,17 +55,17 @@ var liste = {
 
 var ikon = [
     L.icon({
-    iconUrl: 'coffee.png',
+    iconUrl: '../public/icons/eat.png',
     iconSize: [20, 20],
     iconAnchor: [10, 10]
 }), 
     L.icon({
-    iconUrl: 'eyebrow.png',
+    iconUrl: '../public/icons/kindergarden.png',
     iconSize: [20, 20],
     iconAnchor: [10, 10]
 }), 
     L.icon({
-    iconUrl: 'eyebrow.png',
+    iconUrl: '../public/icons/bus.png',
     iconSize: [20, 20],
     iconAnchor: [10, 10]
 })
