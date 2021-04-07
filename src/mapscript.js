@@ -1,3 +1,20 @@
+$(document).ready(function(){
+  var objDb;
+  var kord;
+  $.getJSON("boligDb.php", function(data){
+    objDb = data;
+  })
+  .done(function(){
+    $.each(objDb, function(key, value){
+      var geoapi = "https://api.mapbox.com/geocoding/v5/mapbox.places/"+value.Adresse+"%20"+value.AdresseNummer+"%20&"+value.postkode+".json?types=address&types=postcode&limit=1&access_token=pk.eyJ1IjoibGlucmlrIiwiYSI6ImNrbGl3c3I4cjFtbDMydXByY3Fwb2FiNWcifQ.c6ZaUObW0b5T2_Banm1Zjg";
+      $.getJSON(geoapi, function(pos){
+        kord = pos.features.geometry;
+      })
+    })
+    .fail(function(){
+      alert("Kunne ikke hente datasett");
+    });
+
 //Tores kalkulator
 var buss = 32;
 var bussMax = 52;
@@ -105,4 +122,7 @@ Object.keys(interest).forEach((v)=>{
 L.marker([interest[v].x, interest[v].y], {icon: ikon[interest[v].ikon]} ).addTo(map)
     .bindPopup(interest[v].hus + interest[v].beskriv);
     // .openPopup();
+});
+})
+
 });
