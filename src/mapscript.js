@@ -1,22 +1,45 @@
 $(document).ready(function(){
   var objDb;
+  var bilder
   var kord;
   $.getJSON("boligDb.php", function(data){
-    objDb = data;
+    objDb = data.bolig;
+    bilder = data.bilder;
   })
   .done(function(){
     $.each(objDb, function(key, value){
-      var geoapi = "https://api.mapbox.com/geocoding/v5/mapbox.places/"+value.Adresse+"%20"+value.AdresseNummer+"%20&"+value.postkode+".json?types=address&types=postcode&limit=1&access_token=pk.eyJ1IjoibGlucmlrIiwiYSI6ImNrbGl3c3I4cjFtbDMydXByY3Fwb2FiNWcifQ.c6ZaUObW0b5T2_Banm1Zjg";
+      var adrArr = value.Adresse.split(" ");
+      var adr = "";
+      for(var i = 0; i < adrArr.length; i++){
+        if (adrArr.length-1 == i) {
+          adr += adrArr[i];
+        } else{
+          adr += adrArr[i] + "%20";
+        }
+      }
+      if (value.adr == null) {
+        var geoapi = "https://api.mapbox.com/geocoding/v5/mapbox.places/"+adr+"%20"+value.AdresseNR+"%20&"+value.postkode+".json?types=address&types=postcode&limit=1&access_token=pk.eyJ1IjoibGlucmlrIiwiYSI6ImNrbGl3c3I4cjFtbDMydXByY3Fwb2FiNWcifQ.c6ZaUObW0b5T2_Banm1Zjg";
+      } else{
+        var geoapi = "https://api.mapbox.com/geocoding/v5/mapbox.places/"+adr+"%20"+value.AdresseNR+value.adrChar+"%20&"+value.postkode+".json?types=address&types=postcode&limit=1&access_token=pk.eyJ1IjoibGlucmlrIiwiYSI6ImNrbGl3c3I4cjFtbDMydXByY3Fwb2FiNWcifQ.c6ZaUObW0b5T2_Banm1Zjg";
+      }
       $.getJSON(geoapi, function(pos){
-        kord = pos.features.geometry;
+        objDb[key].kord = pos.features[0].geometry.coordinates;
       })
+      var bildeArr = new Array(3);
+      for(var i = 0; i < 3; i++){
+        for (var j = 0; j < bilder.length; j++) {
+          if (value.Boligid == bilder[j].Bolig_Boligid) {
+            bildeArr[i] = bilder[j].pathname;
+          }
+        }
+      }
+      objDb[key].bilder = bildeArr;
     })
+    console.log(objDb);
   })
   .fail(function(){
     alert("Kunne ikke hente datasett");
   });
-  console.log("hei");
-
 //Tores kalkulator
 var buss = 32;
 var bussMax = 52;
@@ -71,6 +94,42 @@ var liste = {
 	2:{hus:"Blått hus",x:59.21368429502667, pris:pris[2], y:9.585710132976175, beskriv:"<br> Den er bra husen ja"}, 
 	3:{hus:"Gult hus",x:51.4, y:-0.09, pris:pris[2], beskriv:"<br> Den er bra husen ja"}
 };
+
+//  values i objDb
+
+//    Adresse: "Schweigaardstun"
+//    AdresseNR: "3"
+//    Bad: "1"
+//    Beskrivelse: "her er det en beskrivelse"
+//    Boligid: "13"
+//    Boligtype_idBoligtype: "1"
+//    Byggerår: "2014"
+//    Eier_PersonId: "2"
+//    Email: "adrian_dahl@gmail.com"
+//    Etternavn: "Dahl"
+//    Fornavn: "Adrian"
+//    Merknad: "C"
+//    MobilNr: "45232789"
+//    PersonId: "2"
+//    Postnummer: "3717"
+//    Prisantydning: "1360000"
+//    Rom: "3"
+//    Soverom: "2"
+//    Tomteareal: "1323"
+//    adrChar: null
+//    bilder:
+//        0: "Hus83"
+//        1: "Hus83"
+//        2: "Hus83"
+//    energimerkning_Merknad: "C"
+//    etasje_idetasje: "2"
+//    idBoligtype: "1"
+//    idetasje: "2"
+//    kord:
+//        0: 9.608882
+//        1: 59.213178
+//    postkode_Postnummer: "3717"
+//    type: "Leilighet"
 
 var ikon = [
     L.icon({
