@@ -11,9 +11,11 @@ $(document).ready(function(){
         kord = pos.features.geometry;
       })
     })
-    .fail(function(){
-      alert("Kunne ikke hente datasett");
-    });
+  })
+  .fail(function(){
+    alert("Kunne ikke hente datasett");
+  });
+  console.log("hei");
 
 //Tores kalkulator
 var buss = 32;
@@ -123,6 +125,5 @@ L.marker([interest[v].x, interest[v].y], {icon: ikon[interest[v].ikon]} ).addTo(
     .bindPopup(interest[v].hus + interest[v].beskriv);
     // .openPopup();
 });
-})
 
 });
