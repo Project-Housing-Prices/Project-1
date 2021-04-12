@@ -164,11 +164,21 @@ var redIcon = L.icon({
 
 var map = L.map('mapid').setView([59.2089493, 9.6022095], 15); 
 //SKIEN
-
+/*
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-}).addTo(map); 
+}).addTo(map); */
 
+var map = L.map('mapid').setView([51.505, -0.09], 13);
+  L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+      attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+      maxZoom: 18,
+      id: 'mapbox/streets-v11',
+      tileSize: 512,
+      zoomOffset: -1,
+      accessToken: 'pk.eyJ1IjoiYWRyaWFuZGFobG1hcCIsImEiOiJja25lcWp0dGsxdHg4MnBtcjV3OGEwMHA2In0._wE-cZAqan2qohwR39JEQQ'
+  }).addTo(map);
+  L.control.fullscreen().addTo(map);
 
 //for salgsobjekter
 Object.keys(liste).forEach((v)=>{
