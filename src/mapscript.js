@@ -276,6 +276,88 @@ function tallMedMellomrom(x) {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
 };
     
+$.each(objDb, function(key, value){
+var kordinat = value.kord.split(",");
+var adressen = "";
+if (adrChar = null) {
+  adressen = value.Adresse + " " + value.AdresseNR;
+} else{
+  adressen = value.Adresse + " " + value.AdresseNR + value.adrChar;
+}
+L.marker([kordinat[0], kordinat[1]], {icon: redIcon}).addTo(map)
+    .bindPopup( " " + adressen + "<br>" + Math.round(liste[v].pris) + "kr" +
+      '<br> <br> <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#popup' + tellern + '">' +
+      'Vis mer' +
+      '</button>'
+      );
+    // .openPopup();
+    $("#resultat-data").append(" " + 
+      '<div class="modal fade" id="popup' + tellern + '" tabindex="-1" aria-labelledby="label' + tellern + '" aria-hidden="true">'+
+      '<div class="modal-dialog">'+
+      '<div class="modal-content">'+
+      '<div class="modal-header">'+
+      '<h5 class="modal-title" id="label' + tellern + '">'+ adressen +'</h5>'+
+      '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>'+
+      '</div>'+
+      '<div class="modal-body">'+
+      '<img src="https://dnb-nextgen-cdn-cms.azureedge.net/cms-blobs/39991387b089437ba3c26946c4a3651b/2619c237c8b94dc89789250433bd0bd4.jpg">'+
+      '<p>' + value.Beskrivelse + '</p>'+
+      '</div>'+
+      '<div class="modal-footer">'+
+      '</div>'+
+      '</div>'+
+      '</div>'
+      );
+
+    $("#annonser").append(" "+
+    '<div class="col product-card">'+
+    '<div class="product-image">'+
+    '<img src="">'+
+    '</div>'+
+    '<div class="product">'+
+    '<div class="product-top clearfix">'+
+    '<div class="left">'+
+    '<i class="fas fa-hand-holding-usd"></i>'+
+    '<span>'+tallMedMellomrom(Math.round(liste[v].pris))+',-</span>'+
+    '</div>'+
+    '<div class="right">'+
+    '<i class="fas fa-home"></i>'+
+    '<span>400 m</span>'+
+    '<sup>2</sup>'+
+    '</div>'+
+    '</div>'+
+    '<div class="product-mid clearfix">'+
+    '<div class="adresse">'+
+    '<div>'+
+    '<small>Skien '+ value.postkode_Postnummer +'</small>'+
+    '</div>'+
+    '<div>'+adressen+'</div>'+
+    '</div>'+
+    '<div class="distanse">'+
+    '<div class="icondistanse"><small class="iconpadding"><i class="fas fa-shopping-cart"></i> 526m</small></div>'+
+    '<div class="icondistanse"><small class="iconpadding"><i class="fas fa-shopping-cart"></i> 526m</small></div>'+
+    '<div class="icondistanse"><small class="iconpadding"><i class="fas fa-shopping-cart"></i> 526m</small></div>'+
+    '</div>'+
+    '</div>'+
+    '<div class="product-bot clearfix">'+
+    '<div class="boticon lefticon">'+
+    '<i class="far fa-building"></i>'+
+    '<div><small>'+value.type+'</small></div>'+
+    '</div>'+
+    '<div class="boticon midicon">'+
+    '<i class="fas fa-bath"></i>'+
+    '<div><small>'+value.Bad+' baderom</small></div>'+
+    '</div>'+
+    '<div class="boticon righticon">'+
+    '<i class="fas fa-bed"></i>'+
+    '<div><small>'+ value.Soverom +' soverom</small></div>'+
+    '</div>'+
+    '</div>'+
+    '</div>'+
+    '</div>');
+    
+    tellern++;
+});/*
 Object.keys(liste).forEach((v)=>{
 L.marker([liste[v].x, liste[v].y], {icon: redIcon}).addTo(map)
     .bindPopup( " " + liste[v].hus + "<br>" + Math.round(liste[v].pris) + "kr" +
@@ -351,7 +433,7 @@ L.marker([liste[v].x, liste[v].y], {icon: redIcon}).addTo(map)
     
     tellern++;
 
-});
+});*/
 
 //var liste = {
 //  0:{hus:"Rødt Hus",x:59.22022506832878, pris:pris[0], y:9.615463280937659, beskriv:"<br> Den er bra husen ja"}, 
