@@ -312,7 +312,7 @@ L.marker([kordinat[0], kordinat[1]], {icon: redIcon}).addTo(map)
     $("#annonser").append(" "+
     '<div class="col product-card">'+
     '<div class="product-image">'+
-    '<img src="">'+
+    '<img src="Hus/'+ value.bilder[0] +'.jpg">'+
     '</div>'+
     '<div class="product">'+
     '<div class="product-top clearfix">'+
