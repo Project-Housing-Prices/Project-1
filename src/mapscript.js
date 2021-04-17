@@ -8,23 +8,7 @@ $(document).ready(function(){
   })
   .done(function(){
     $.each(objDb, function(key, value){
-      var adrArr = value.Adresse.split(" ");
-      var adr = "";
-      for(var i = 0; i < adrArr.length; i++){
-        if (adrArr.length-1 == i) {
-          adr += adrArr[i];
-        } else{
-          adr += adrArr[i] + "%20";
-        }
-      }
-      if (value.adr == null) {
-        var geoapi = "https://api.mapbox.com/geocoding/v5/mapbox.places/"+adr+"%20"+value.AdresseNR+"%20&"+value.postkode+".json?types=address&types=postcode&limit=1&access_token=pk.eyJ1IjoibGlucmlrIiwiYSI6ImNrbGl3c3I4cjFtbDMydXByY3Fwb2FiNWcifQ.c6ZaUObW0b5T2_Banm1Zjg";
-      } else{
-        var geoapi = "https://api.mapbox.com/geocoding/v5/mapbox.places/"+adr+"%20"+value.AdresseNR+value.adrChar+"%20&"+value.postkode+".json?types=address&types=postcode&limit=1&access_token=pk.eyJ1IjoibGlucmlrIiwiYSI6ImNrbGl3c3I4cjFtbDMydXByY3Fwb2FiNWcifQ.c6ZaUObW0b5T2_Banm1Zjg";
-      }
-      $.getJSON(geoapi, function(pos){
-        objDb[key].kord = pos.features[0].geometry.coordinates;
-      })
+      
       var bildeArr = new Array(3);
       for(var i = 0; i < 3; i++){
         for (var j = 0; j < bilder.length; j++) {
@@ -35,11 +19,14 @@ $(document).ready(function(){
       }
       objDb[key].bilder = bildeArr;
     })
-    console.log(objDb);
+    
   })
   .fail(function(){
     alert("Kunne ikke hente datasett");
-  });
+  }).then(function(){
+
+
+  console.log(objDb);
 //Tores kalkulator
 var buss = 32;
 var bussMax = 52;
@@ -89,10 +76,10 @@ var pris = [900000, 1400000, 3100000, 2600000];
 
 
 var liste = {
-	0:{hus:"Rødt Hus",x:59.22022506832878, pris:pris[0], y:9.615463280937659, beskriv:"<br> Den er bra husen ja"}, 
-	1:{hus:"Fiolett hus",x:59.199803985842124, pris:pris[1], y:9.595800722793395, beskriv:"<br> Den nesten bra husen ja"}, 
-	2:{hus:"Blått hus",x:59.21368429502667, pris:pris[2], y:9.585710132976175, beskriv:"<br> Den er bra husen ja"}, 
-	3:{hus:"Gult hus",x:51.4, y:-0.09, pris:pris[2], beskriv:"<br> Den er bra husen ja"}
+  0:{hus:"Rødt Hus",x:59.22022506832878, pris:pris[0], y:9.615463280937659, beskriv:"<br> Den er bra husen ja"}, 
+  1:{hus:"Fiolett hus",x:59.199803985842124, pris:pris[1], y:9.595800722793395, beskriv:"<br> Den nesten bra husen ja"}, 
+  2:{hus:"Blått hus",x:59.21368429502667, pris:pris[2], y:9.585710132976175, beskriv:"<br> Den er bra husen ja"}, 
+  3:{hus:"Gult hus",x:51.4, y:-0.09, pris:pris[2], beskriv:"<br> Den er bra husen ja"}
 };
 
 //  values i objDb
@@ -125,9 +112,7 @@ var liste = {
 //    etasje_idetasje: "2"
 //    idBoligtype: "1"
 //    idetasje: "2"
-//    kord:
-//        0: 9.608882
-//        1: 59.213178
+//    kord: "9.608882,59.213178"
 //    postkode_Postnummer: "3717"
 //    type: "Leilighet"
 
@@ -150,16 +135,16 @@ var ikon = [
 ];
 
 var interest = {
-	0:{hus:"Dominos Pizza",x:59.2094436, y:9.602231, ikon:0, beskriv:"<br> VeldeBRA PIZZE"}, 
-	1:{hus:"Hanken Barnehage",x:59.2085648, y:9.6018662, ikon:1, beskriv:"<br> Masse lekre barn ;)"}, 
-	2:{hus:"Blått hus",x:59.2101218, y:9.6207422, ikon:2, beskriv:"<br> Den er bra husen ja"}, 
-	3:{hus:"Gult hus",x:59.2020116, y:9.6153242, ikon:2, beskriv:"<br> Den er bra husen ja"}
+  0:{hus:"Dominos Pizza",x:59.2094436, y:9.602231, ikon:0, beskriv:"<br> VeldeBRA PIZZE"}, 
+  1:{hus:"Hanken Barnehage",x:59.2085648, y:9.6018662, ikon:1, beskriv:"<br> Masse lekre barn ;)"}, 
+  2:{hus:"Blått hus",x:59.2101218, y:9.6207422, ikon:2, beskriv:"<br> Den er bra husen ja"}, 
+  3:{hus:"Gult hus",x:59.2020116, y:9.6153242, ikon:2, beskriv:"<br> Den er bra husen ja"}
 };
 
 var redIcon = L.icon({
-	iconUrl: '../public/icons/house.png',
-	iconSize: [40, 40], // ikon-størrelse
-	iconAnchor: [40/2, 40] // ikon-anker. Der iconet treffer kartet
+  iconUrl: '../public/icons/house.png',
+  iconSize: [40, 40], // ikon-størrelse
+  iconAnchor: [40/2, 40] // ikon-anker. Der iconet treffer kartet
 });
 
 var map = L.map('mapid').setView([59.2089493, 9.6022095], 15); 
@@ -193,5 +178,5 @@ L.marker([interest[v].x, interest[v].y], {icon: ikon[interest[v].ikon]} ).addTo(
     .bindPopup(interest[v].hus + interest[v].beskriv);
     // .openPopup();
 });
-
+});
 });
