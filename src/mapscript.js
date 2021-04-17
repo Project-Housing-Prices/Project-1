@@ -1,7 +1,6 @@
 $(document).ready(function(){
   var objDb;
   var bilder
-  var kord;
   $.getJSON("boligDb.php", function(data){
     objDb = data.bolig;
     bilder = data.bilder;
